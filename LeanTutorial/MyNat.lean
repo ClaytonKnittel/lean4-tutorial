@@ -7,11 +7,11 @@ deriving Repr, DecidableEq
 
 notation "ℕ" => MyNat
 
-def zero := MyNat.zero
-def one := MyNat.succ zero
-def two := MyNat.succ one
-def three := MyNat.succ two
-def four := MyNat.succ three
+@[reducible] def zero := MyNat.zero
+@[reducible] def one := MyNat.succ zero
+@[reducible] def two := MyNat.succ one
+@[reducible] def three := MyNat.succ two
+@[reducible] def four := MyNat.succ three
 
 theorem one_eq_succ_zero: one = MyNat.succ zero := by rfl
 theorem two_eq_succ_one: two = MyNat.succ one := by rfl

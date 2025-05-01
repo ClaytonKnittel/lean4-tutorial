@@ -2,8 +2,8 @@ import Mathlib.Tactic.NthRewrite
 import LeanTutorial.MyNat
 
 def myAdd : ℕ → ℕ → ℕ
-  | MyNat.zero,    n => n
-  | MyNat.succ m,  n => MyNat.succ (myAdd m n)
+  | .zero, n => n
+  | .succ m, n => MyNat.succ (myAdd m n)
 
 infixl:65 " + " => myAdd
 
