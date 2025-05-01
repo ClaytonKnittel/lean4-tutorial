@@ -42,3 +42,6 @@ theorem add_assoc (a b c : ℕ) : (a + b) + c = a + (b + c) := by
 theorem add_right_comm (a b c : ℕ) : (a + b) + c = (a + c) + b := by
   rw [add_comm, ← add_assoc]
   nth_rw 2 [add_comm]
+
+theorem succ_eq_add_one (a : ℕ) : a.succ = a + one := by
+  rw [add_succ, add_zero]

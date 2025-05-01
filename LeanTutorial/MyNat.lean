@@ -10,6 +10,7 @@ notation "ℕ" => MyNat
 @[reducible] def two := MyNat.succ one
 @[reducible] def three := MyNat.succ two
 @[reducible] def four := MyNat.succ three
+@[reducible] def five := MyNat.succ four
 
 @[reducible]
 instance : OfNat MyNat 0 where
@@ -26,3 +27,14 @@ instance : OfNat MyNat 3 where
 @[reducible]
 instance : OfNat MyNat 4 where
   ofNat := four
+@[reducible]
+instance : OfNat MyNat 5 where
+  ofNat := five
+
+theorem succ_inj {a b : ℕ} : a.succ = b.succ → a = b := by
+  intro h
+  injection h
+
+theorem zero_ne_succ (a : ℕ) : 0 ≠ a.succ := by
+  intro h
+  contradiction
