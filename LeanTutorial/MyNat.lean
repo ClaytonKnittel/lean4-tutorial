@@ -39,6 +39,6 @@ theorem zero_ne_succ (a : ℕ) : 0 ≠ a.succ := by
   intro h
   contradiction
 
-theorem succ_ne_zero (a : ℕ) : a.succ ≠ 0 := by
+theorem succ_ne_zero {a : ℕ} : a.succ ≠ 0 := by
   symm
   apply zero_ne_succ

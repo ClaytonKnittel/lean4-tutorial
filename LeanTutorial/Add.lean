@@ -75,7 +75,7 @@ theorem add_right_eq_zero (a b : ℕ) : a + b = 0 → a = 0 := by
     exact id
   | succ =>
     rw [add_succ]
-    exact False.elim ∘ succ_ne_zero _
+    exact False.elim ∘ succ_ne_zero
 
 theorem add_left_eq_zero (a b : ℕ) : a + b = 0 → b = 0 := by
   rw [add_comm]
