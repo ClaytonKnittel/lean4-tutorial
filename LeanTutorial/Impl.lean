@@ -36,8 +36,5 @@ theorem lvl11 : two + two ≠ five := by
   repeat rw [add_succ, succ_add]
   rw [add_zero]
   intro h
-  let h := succ_inj h
-  let h := succ_inj h
-  let h := succ_inj h
-  let h := succ_inj h
+  let h := (succ_inj ∘ succ_inj ∘ succ_inj ∘ succ_inj) h
   exact lvl9 h
