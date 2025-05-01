@@ -1,5 +1,4 @@
-open Nat
-notation "ℕ" => Nat
+import LeanTutorial.MyNat
 
 def m : Nat := 0
 
@@ -18,11 +17,6 @@ theorem lvl2 (x y : ℕ) : y = x + 7 → 2*y = 2*(x + 7) :=
 theorem lvl2' (x y : ℕ) : y = x + 7 → 2 * y = 2 * (x + 7) :=
   fun h => congrArg (fun n => 2 * n) h
 
-theorem one_eq_succ_zero: 1 = Nat.succ 0 := by rfl
-theorem two_eq_succ_one: 2 = Nat.succ 1 := by rfl
-theorem three_eq_succ_two: 3 = Nat.succ 2 := by rfl
-theorem four_eq_succ_three: 4 = Nat.succ 3 := by rfl
-
 theorem lvl3: 2 = Nat.succ (Nat.succ 0) :=
   by
     rewrite [two_eq_succ_one]
@@ -34,8 +28,6 @@ theorem lvl4: 2 = Nat.succ (Nat.succ 0) :=
     rewrite [← one_eq_succ_zero]
     rewrite [← two_eq_succ_one]
     eq_refl
-
-theorem add_zero (a : ℕ) : a + 0 = a := by sorry
 
 theorem lvl5: a + (b + 0) + (c + 0) = a + b + c :=
   by
@@ -51,7 +43,7 @@ theorem lvl6: a + (b + 0) + (c + 0) = a + b + c :=
 theorem lvl7 (n : ℕ) : Nat.succ n = n + 1 :=
   by
     rewrite [one_eq_succ_zero]
-    rewrite [add_succ]
+    rewrite [Nat.add_succ]
     rewrite [add_zero]
     eq_refl
 
@@ -59,6 +51,6 @@ theorem lvl8 : 2 + 2 = 4 :=
   by
     rewrite [four_eq_succ_three, three_eq_succ_two]
     rewrite [two_eq_succ_one, one_eq_succ_zero]
-    repeat rewrite [add_succ]
+    repeat rewrite [Nat.add_succ]
     rewrite [add_zero]
     eq_refl
