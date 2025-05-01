@@ -50,9 +50,7 @@ theorem mul_add (a b c : ℕ) : a * (b + c) = a * b + a * c := by
     rw [add_succ, mul_succ, mul_succ, ih, add_assoc]
 
 theorem add_mul (a b c : ℕ) : (a + b) * c = a * c + b * c := by
-  rw [mul_comm, mul_add]
-  rw [mul_comm]
-  nth_rw 2 [mul_comm]
+  rw [mul_comm, mul_add, mul_comm, mul_comm c]
 
 theorem mul_assoc (a b c : ℕ) : (a * b) * c = a * (b * c) := by
   induction b with
@@ -61,10 +59,7 @@ theorem mul_assoc (a b c : ℕ) : (a * b) * c = a * (b * c) := by
     rw [succ_mul, mul_succ, add_mul, mul_add, ih]
 
 theorem mul_right_comm (a b c : ℕ) : (a * b) * c = (a * c) * b := by
-  rw [mul_assoc]
-  nth_rw 2 [mul_comm]
-  rw [mul_assoc]
+  rw [mul_comm (a * b), ← mul_assoc, mul_comm c]
 
 theorem mul_left_comm (a b c : ℕ) : a * (b * c) = b * (a * c) := by
-  rw [mul_comm, mul_assoc]
-  nth_rw 2 [mul_comm]
+  rw [mul_comm, mul_assoc, mul_comm a]

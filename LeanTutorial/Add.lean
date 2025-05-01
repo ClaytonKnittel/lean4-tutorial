@@ -1,4 +1,3 @@
-import Mathlib.Tactic.NthRewrite
 import LeanTutorial.MyNat
 
 def addNat : ℕ → ℕ → ℕ
@@ -40,8 +39,31 @@ theorem add_assoc (a b c : ℕ) : (a + b) + c = a + (b + c) := by
     rw [ih]
 
 theorem add_right_comm (a b c : ℕ) : (a + b) + c = (a + c) + b := by
-  rw [add_comm, ← add_assoc]
-  nth_rw 2 [add_comm]
+  rw [add_comm, ← add_assoc, add_comm a]
 
 theorem succ_eq_add_one (a : ℕ) : a.succ = a + one := by
   rw [add_succ, add_zero]
+
+theorem add_right_cancel (a b n : ℕ)
+    : a + n = b + n → a = b := by
+  induction n with
+  | zero =>
+    repeat rw [add_zero]
+    exact id
+  | succ _ ih =>
+    repeat rw [add_succ]
+    exact ih ∘ succ_inj
+
+theorem add_left_cancel (a b n : ℕ)
+    : n + a = n + b → a = b := by
+  repeat rw [add_comm n]
+  apply add_right_cancel
+
+theorem add_left_eq_self (x y : ℕ) : x + y = y → x = 0 := by
+  induction y with
+  | zero =>
+    rw [add_zero]
+    exact id
+  | succ _ ih =>
+    rw [add_succ]
+    exact ih ∘ succ_inj
