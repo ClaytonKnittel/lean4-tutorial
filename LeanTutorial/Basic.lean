@@ -1,8 +1,6 @@
 open Nat
 notation "ℕ" => Nat
 
-def hello := "world"
-
 def m : Nat := 0
 
 theorem lvl1 (x y : ℕ) : 37 * x + y = 37 * x + y := by eq_refl
