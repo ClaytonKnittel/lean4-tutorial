@@ -60,15 +60,15 @@ theorem add_left_cancel (a b n : ℕ)
   repeat rw [add_comm n]
   apply add_right_cancel
 
-theorem add_left_eq_self (a b : ℕ) : a + b = b → a = 0 := by
+theorem add_left_eq_self {a b : ℕ} : a + b = b → a = 0 := by
   nth_rw 2 [← zero_add b]
   apply add_right_cancel
 
-theorem add_right_eq_self (a b : ℕ) : a + b = a → b = 0 := by
+theorem add_right_eq_self {a b : ℕ} : a + b = a → b = 0 := by
   rw [add_comm]
   apply add_left_eq_self
 
-theorem add_right_eq_zero (a b : ℕ) : a + b = 0 → a = 0 := by
+theorem add_right_eq_zero {a b : ℕ} : a + b = zero → a = zero := by
   cases b with
   | zero =>
     rw [add_zero]
@@ -77,6 +77,10 @@ theorem add_right_eq_zero (a b : ℕ) : a + b = 0 → a = 0 := by
     rw [add_succ]
     exact False.elim ∘ succ_ne_zero
 
-theorem add_left_eq_zero (a b : ℕ) : a + b = 0 → b = 0 := by
+theorem add_left_eq_zero {a b : ℕ} : a + b = zero → b = zero := by
   rw [add_comm]
-  apply add_right_eq_zero
+  exact add_right_eq_zero
+
+theorem add_eq_zero {a b : ℕ} : a + b = zero → a = zero ∧ b = zero := by
+  intro h
+  exact And.intro (add_right_eq_zero h) (add_left_eq_zero h)
