@@ -1,9 +1,9 @@
+import Mathlib.Logic.Function.Iterate
+
 inductive MyNat where
 | zero : MyNat
 | succ : MyNat -> MyNat
 deriving Repr, DecidableEq
-
-notation "ℕ" => MyNat
 
 @[reducible] def zero := MyNat.zero
 @[reducible] def one := MyNat.succ zero
@@ -11,6 +11,8 @@ notation "ℕ" => MyNat
 @[reducible] def three := MyNat.succ two
 @[reducible] def four := MyNat.succ three
 @[reducible] def five := MyNat.succ four
+
+def thirty_seven := ((MyNat.succ)^[37]) zero
 
 @[reducible]
 instance : OfNat MyNat 0 where
@@ -30,15 +32,3 @@ instance : OfNat MyNat 4 where
 @[reducible]
 instance : OfNat MyNat 5 where
   ofNat := five
-
-theorem succ_inj {a b : ℕ} : a.succ = b.succ → a = b := by
-  intro h
-  injection h
-
-theorem zero_ne_succ (a : ℕ) : 0 ≠ a.succ := by
-  intro h
-  contradiction
-
-theorem succ_ne_zero {a : ℕ} : a.succ ≠ 0 := by
-  symm
-  apply zero_ne_succ

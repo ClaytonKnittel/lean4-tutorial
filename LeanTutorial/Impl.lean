@@ -8,12 +8,12 @@ theorem lvl2 (h : zero + x = (zero + y) + two) : x = y + two := by
 theorem lvl3 (hx : x = three) (hxy : x = three → y = four) : y = four := by
   apply hxy hx
 
-theorem lvl4 (x : ℕ) : x + one = 4 → x = 3 := by
+theorem lvl4 (x : MyNat) : x + one = 4 → x = 3 := by
   intro h
   rw [add_succ, add_zero] at h
   injection h
 
-theorem lvl5 (x : ℕ) : x + one = 4 → x = 3 := by
+theorem lvl5 (x : MyNat) : x + one = 4 → x = 3 := by
   intro h
   apply succ_inj
   rw [succ_eq_add_one]
