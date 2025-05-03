@@ -45,29 +45,6 @@ theorem add_right_comm (a b c : MyNat) : (a + b) + c = (a + c) + b := by
 theorem succ_eq_add_one (a : MyNat) : a.succ = a + one := by
   rw [add_succ, add_zero]
 
-def pred : MyNat → MyNat
-| .zero => thirty_seven
-| .succ n => n
-
-theorem pred_succ (n : MyNat) : pred (n.succ) = n := rfl
-
-theorem succ_inj {a b : MyNat} : a.succ = b.succ → a = b := by
-  intro h
-  rw [← pred_succ a, h, pred_succ]
-
-def is_zero : MyNat → Bool
-| .zero => true
-| .succ _ => false
-
-theorem is_zero_zero : is_zero zero = True :=
-  eq_self (is_zero zero)
-
-theorem is_zero_succ {n : MyNat} : is_zero n.succ = False :=
-  eq_false (ne_true_of_eq_false rfl)
-
-theorem succ_ne_zero {n : MyNat} : n.succ ≠ 0 :=
-  Ne.symm (ne_of_beq_false rfl)
-
 theorem add_right_cancel (a b n : MyNat)
     : a + n = b + n → a = b := by
   induction n with
