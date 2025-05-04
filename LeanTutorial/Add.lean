@@ -45,7 +45,7 @@ theorem add_right_comm (a b c : MyNat) : (a + b) + c = (a + c) + b := by
 theorem succ_eq_add_one (a : MyNat) : a.succ = a + one := by
   rw [add_succ, add_zero]
 
-theorem add_right_cancel (a b n : MyNat)
+theorem add_right_cancel {a b : MyNat} (n : MyNat)
     : a + n = b + n → a = b := by
   induction n with
   | zero =>
@@ -55,7 +55,7 @@ theorem add_right_cancel (a b n : MyNat)
     repeat rw [add_succ]
     exact ih ∘ succ_inj
 
-theorem add_left_cancel (a b n : MyNat)
+theorem add_left_cancel {a b : MyNat} (n : MyNat)
     : n + a = n + b → a = b := by
   repeat rw [add_comm n]
   apply add_right_cancel
@@ -85,7 +85,7 @@ theorem add_eq_zero {a b : MyNat} : a + b = zero → a = zero ∧ b = zero := by
   intro h
   exact And.intro (add_right_eq_zero h) (add_left_eq_zero h)
 
-theorem add_left_comm {a b c : MyNat} : a + (b + c) = b + (a + c) := by
+theorem add_left_comm (a b c : MyNat) : a + (b + c) = b + (a + c) := by
   rw [add_comm, add_assoc, add_comm a]
 
 theorem add_rearrange {a b c d : MyNat} : (a + b) + (c + d) = a + c + d + b := by

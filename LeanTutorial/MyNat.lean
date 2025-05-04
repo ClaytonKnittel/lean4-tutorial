@@ -1,4 +1,5 @@
 import Mathlib.Logic.Function.Iterate
+import Mathlib.Tactic.Tauto
 
 inductive MyNat where
 | zero : MyNat
@@ -84,3 +85,11 @@ instance instDecidableEq : DecidableEq MyNat
   | isFalse (h : m ≠ n) => isFalse <| by
     show m.succ ≠ n.succ
     exact succ_ne_succ h
+
+theorem eq_succ_of_ne_zero {a : MyNat} (ha : a ≠ 0) : ∃ (n : MyNat), a = n.succ := by
+  cases a with
+  | zero => tauto
+  | succ m =>
+    exists m
+
+theorem zero_ne_one : zero ≠ one := ne_of_beq_false rfl

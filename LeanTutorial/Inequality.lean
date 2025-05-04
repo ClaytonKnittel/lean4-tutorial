@@ -90,3 +90,10 @@ theorem le_one {x : MyNat} : x ≤ one → x = zero ∨ x = one := by
       rw [succ_add] at h
       right
       rw [add_right_eq_zero (succ_inj h)]
+
+theorem one_le_of_ne_zero {a : MyNat} (ha : a ≠ 0) : 1 ≤ a := by
+  let x := eq_succ_of_ne_zero ha
+  cases x with
+  | intro n a_eq_n_succ =>
+    rw [a_eq_n_succ]
+    exact le_succ_inj zero_le
