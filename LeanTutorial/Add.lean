@@ -27,10 +27,22 @@ theorem zero_add (a : MyNat) : zero + a = a := by
   | zero => rw [add_zero]
   | succ b ih => rw [add_succ, ih]
 
+theorem add_comm' (a b : MyNat) : a + b = b + a :=
+  match a with
+  | .zero => Eq.trans (zero_add b) (Eq.symm (add_zero b))
+  | .succ n => Eq.trans
+    (congrArg MyNat.succ (add_comm' n b)) -- (n + b).succ = (b + n).succ
+    (Eq.symm (add_succ b n))              -- (b + n).succ = b + n.succ
+
 theorem add_comm (a b : MyNat) : a + b = b + a := by
   induction a with
   | zero => rw [add_zero, zero_add]
   | succ _ ih => rw [add_succ, succ_add, ih]
+
+theorem add_assoc' (a b c : MyNat) : (a + b) + c = a + (b + c) :=
+  match a with
+  | .zero => Eq.refl (b + c)
+  | .succ n => congrArg MyNat.succ (add_assoc' n b c)
 
 theorem add_assoc (a b c : MyNat) : (a + b) + c = a + (b + c) := by
   induction a with
@@ -39,11 +51,32 @@ theorem add_assoc (a b c : MyNat) : (a + b) + c = a + (b + c) := by
     repeat rw [succ_add]
     rw [ih]
 
+theorem add_right_comm' (a b c : MyNat) : (a + b) + c = (a + c) + b :=
+  Eq.trans
+    (Eq.trans
+      (add_comm (a + b) c)
+      (Eq.symm (add_assoc c a b)))
+    (congrArg (· + b) (add_comm c a))
+
 theorem add_right_comm (a b c : MyNat) : (a + b) + c = (a + c) + b := by
   rw [add_comm, ← add_assoc, add_comm a]
 
 theorem succ_eq_add_one (a : MyNat) : a.succ = a + one := by
   rw [add_succ, add_zero]
+
+theorem add_right_cancel' {a b : MyNat} (n : MyNat) (h : a + n = b + n)
+    : a = b :=
+  match n with
+  | .zero =>
+    Eq.trans
+      (Eq.trans (Eq.symm (add_zero a)) h)
+      (add_zero b)
+  | .succ m => add_right_cancel' m
+    (succ_inj
+      (Eq.trans
+        (Eq.trans (Eq.symm (add_succ a m)) h)
+        (add_succ b m))
+    )
 
 theorem add_right_cancel {a b : MyNat} (n : MyNat)
     : a + n = b + n → a = b := by

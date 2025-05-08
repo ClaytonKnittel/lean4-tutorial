@@ -40,9 +40,8 @@ def pred : MyNat → MyNat
 
 theorem pred_succ (n : MyNat) : pred (n.succ) = n := rfl
 
-theorem succ_inj {a b : MyNat} : a.succ = b.succ → a = b := by
-  intro h
-  rw [← pred_succ a, h, pred_succ]
+theorem succ_inj' {a b : MyNat} (h : a.succ = b.succ) : a = b := congrArg pred h
+theorem succ_inj {a b : MyNat} : a.succ = b.succ → a = b := congrArg pred
 
 def is_zero : MyNat → Bool
 | .zero => true
